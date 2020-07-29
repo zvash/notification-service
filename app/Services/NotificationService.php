@@ -72,9 +72,13 @@ class NotificationService
     private function prepareEmails()
     {
         foreach ($this->recipients as $recipient) {
-            $email = $recipient['email'];
-            $params = $recipient + $this->extraParams;
-            $this->senders[] = new EmailSender($email, $this->template, $params);
+            if (array_key_exists('email', $recipient)) {
+                $email = $recipient['email'];
+                if ($email) {
+                    $params = $recipient + $this->extraParams;
+                    $this->senders[] = new EmailSender($email, $this->template, $params);
+                }
+            }
         }
     }
 
@@ -82,8 +86,11 @@ class NotificationService
     {
         foreach ($this->recipients as $recipient) {
             $phone = $recipient['phone'];
-            $params = $recipient + $this->extraParams;
-            $this->senders[] = new TextMessageSender($phone, $this->template, $params);
+            if ($phone) {
+                $params = $recipient + $this->extraParams;
+                $this->senders[] = new TextMessageSender($phone, $this->template, $params);
+            }
+
         }
     }
 

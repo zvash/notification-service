@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use Illuminate\Support\Facades\Log;
+use Kavenegar\KavenegarApi;
 
 class TextMessageSender implements Sendable
 {
@@ -38,6 +39,11 @@ class TextMessageSender implements Sendable
     public function send()
     {
         $body = trans('messages.' . $this->template . '_sms', $this->params);
+        $api = new KavenegarApi( env('SMS_PROVIDER_API_KEY', ''));
+        $sender = env('DEFAULT_NUMBER', '');
+        $receptor = [$this->phone];
+        $api->Send($sender, $receptor, $body);
+
         Log::debug($body);
     }
 
