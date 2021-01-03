@@ -36,11 +36,12 @@ class PlayerRepository
 
     /**
      * @param int $userId
+     * @param null|string $playerId
      * @param null|string $platform
      * @param null|string $playerToken
      * @param null|string $deviceToken
      */
-    public function removePlayer(int $userId, ?string $platform = null, ?string $playerToken = null, ?string $deviceToken = null)
+    public function removePlayer(int $userId, ?string $playerId, ?string $platform = null, ?string $playerToken = null, ?string $deviceToken = null)
     {
         $player = Player::query();
         $player = $player->where('user_id', $userId);
@@ -52,6 +53,9 @@ class PlayerRepository
         }
         if ($platform) {
             $player = $player->where('platform', $platform);
+        }
+        if ($playerId) {
+            $player = $player->where('player_id', $playerId);
         }
         $player->delete();
     }

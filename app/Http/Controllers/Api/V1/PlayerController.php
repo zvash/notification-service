@@ -48,6 +48,7 @@ class PlayerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|int|min:1',
+            'player_id' => 'nullable|string',
             'platform' => 'nullable|string|in:web,android,ios',
             'device_token' => 'nullable|string',
             'player_token' => 'nullable|string',
@@ -57,10 +58,11 @@ class PlayerController extends Controller
             return $this->failValidation($validator->errors());
         }
         $userId = $request->get('user_id');
+        $playerId = $request->exists('player_id') ? $request->get('player_id') : null;
         $platform = $request->exists('platform') ? $request->get('platform') : null;
         $deviceToken = $request->exists('device_token') ? $request->get('device_token') : null;
         $playerToken = $request->exists('player_token') ? $request->get('player_token') : null;
-        $playerRepository->removePlayer($userId, $platform, $playerToken, $deviceToken);
+        $playerRepository->removePlayer($userId, $playerId, $platform, $playerToken, $deviceToken);
         return $this->success('done');
     }
 }
