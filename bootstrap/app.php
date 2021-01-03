@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('onesignal');
 
 /*
 |--------------------------------------------------------------------------
@@ -95,8 +96,10 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\NotificationServiceProvider::class);
-
+$app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
+
+class_alias(Berkayk\OneSignal\OneSignalFacade::class,'OneSignal');
 
 /*
 |--------------------------------------------------------------------------

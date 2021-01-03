@@ -6,9 +6,13 @@
     "type": "project",
     "require": {
         "php": "^7.2.5",
+        "berkayk/onesignal-laravel": "^1.0",
         "flipbox/lumen-generator": "^7.0",
+        "guzzlehttp/guzzle": "^6.5",
         "kavenegar/php": "^1.2",
-        "laravel/lumen-framework": "^7.0"
+        "laravel/lumen-framework": "^7.0",
+        "laravelista/lumen-vendor-publish": "^7.0",
+        "smsglobal/smsglobal-php": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",
@@ -22,7 +26,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [

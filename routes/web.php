@@ -21,9 +21,11 @@ $router->get('/who', function () use ($router) {
 
 $router->group(['prefix' => 'api/v1'], function ($router) {
 
-
     $router->group(['namespace' => 'Api\V1'], function ($router) {
         $router->post('send', 'NotificationController@send');
+
+        $router->post('player/register', 'PlayerController@registerPlayerId');
+        $router->post('player/remove', 'PlayerController@removePlayer');
     });
 
 });

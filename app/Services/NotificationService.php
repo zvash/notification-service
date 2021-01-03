@@ -75,25 +75,42 @@ class NotificationService
             if (array_key_exists('email', $recipient)) {
                 $email = $recipient['email'];
                 if ($email) {
-                    $params = $recipient + $this->extraParams;
+                    $params = $this->extractParameters($recipient) + $this->extraParams;
                     $this->senders[] = new EmailSender($email, $this->template, $params);
                 }
             }
         }
     }
 
+    /**
+     *
+     */
     private function prepareTextMessages()
     {
         foreach ($this->recipients as $recipient) {
             $phone = $recipient['phone'];
             if ($phone) {
-                $params = $recipient + $this->extraParams;
+                $params = $this->extractParameters($recipient) + $this->extraParams;
                 $this->senders[] = new TextMessageSender($phone, $this->template, $params);
             }
 
         }
     }
 
+    /**
+     * @param array $recipient
+     * @return array
+     */
+    private function extractParameters(array $recipient)
+    {
+        $parameters = [];
+        foreach ($recipient as $key => $value) {
+            if (!is_array($value)) {
+                $parameters[$key] = $value;
+            }
+        }
+        return $parameters;
+    }
 
 
 
