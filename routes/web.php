@@ -26,6 +26,9 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
 
         $router->post('player/register', 'PlayerController@registerPlayerId');
         $router->post('player/remove', 'PlayerController@removePlayer');
+
+        $router->get('users/{userId}/notifications', 'PushNotificationController@all');
+        $router->post('users/{userId}/send-push-message', 'PushNotificationController@sendMessage');
     });
 
 });
