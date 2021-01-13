@@ -22,6 +22,8 @@ class PlayerRepository
                 ->delete();
         }
 
+        Player::where('player_id', $playerId)->delete();
+
         $player = Player::create([
             'user_id' => $userId,
             'player_id' => $playerId,
